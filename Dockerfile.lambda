@@ -1,0 +1,24 @@
+FROM public.ecr.aws/lambda/nodejs:22
+
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+# Skip Prisma postinstall since we run generate manually
+ENV PRISMA_SKIP_POSTINSTALL_GENERATE=true
+
+COPY package*.json ./
+
+# Must use --legacy-peer-deps to resolve polar-sh peer conflict
+RUN npm install --legacy-peer-deps
+
+# Overwrite with pinned Prisma versions
+RUN npm install @prisma/client@5.22.0 prisma@5.22.0 --legacy-peer-deps
+
+COPY . .
+
+# Generate Prisma Client targeting lambda environment
+RUN npx prisma generate
+
+# Build the project
+RUN npm run build
+
+CMD ["server.handler"]
