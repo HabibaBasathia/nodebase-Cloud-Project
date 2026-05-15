@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "nodebase-terraform-state-bucket"
+    bucket = "nodebase-terraform-state-bucket-habiba"
     key    = "global/s3/terraform.tfstate"
     region = "us-east-1"
   }
