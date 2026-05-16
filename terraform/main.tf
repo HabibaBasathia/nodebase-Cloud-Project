@@ -128,7 +128,7 @@ resource "aws_db_instance" "db" {
 }
 
 resource "aws_s3_bucket" "storage" {
-  bucket = "cloud-project-26-final"
+  bucket = "cloud-project-habiba-final"
 }
 
 resource "aws_sqs_queue" "queue" {
