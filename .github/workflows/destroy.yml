@@ -20,4 +20,4 @@ jobs:
 
       - name: Stop RDS Instance (Saves money without deleting data)
         run: |
-          aws rds stop-db-instance --db-instance-identifier nodebase-db-finals
+          aws rds stop-db-instance --db-instance-identifier nodebase-db-final
