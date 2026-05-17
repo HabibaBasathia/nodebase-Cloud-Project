@@ -16,8 +16,8 @@ jobs:
 
       - name: Scale down ECS Service
         run: |
-          aws ecs update-service --cluster nodebase-cluster --service nodebase-service --desired-count 0
+          aws ecs update-service --cluster nodebase-cluster-final --service nodebase-service --desired-count 0
 
       - name: Stop RDS Instance (Saves money without deleting data)
         run: |
-          aws rds stop-db-instance --db-instance-identifier nodebase-db
+          aws rds stop-db-instance --db-instance-identifier nodebase-db-finals
