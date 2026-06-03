@@ -1,7 +1,5 @@
 name: Deploy to Amazon ECS
 
-
-
 on:
   push:
     branches:
@@ -38,6 +36,11 @@ jobs:
       - name: Install Dependencies for Migration
         run: npm install --legacy-peer-deps
 
+      - name: Run Database Migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       - name: Build, tag, and push image to Amazon ECR
         id: build-image
         env:
@@ -56,8 +59,6 @@ jobs:
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-
 
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def
