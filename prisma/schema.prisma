@@ -182,7 +182,7 @@ model Execution {
   startedAt DateTime @default(now())
   completedAt DateTime?
 
-  inngestEventId String @unique
+  inngestEventId String? @unique
 
   output Json?
 }
